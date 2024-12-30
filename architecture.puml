@@ -1,0 +1,53 @@
+@startuml
+
+' class User {
+'     -String name
+
+'     +String getName()
+'     ' +void login()
+'     ' +void logout()
+' }
+
+class Status {
+    - int status
+    + setStatus()
+    + getStatus()
+}
+
+class Task {
+    -int id
+    -String title
+    -String description
+    -Date dueDate
+    -Date createdDate
+    -Status status
+
+    +Date getTitle()
+    +Date getDueDate()
+    +Date getDescription()
+    +void assign(User user)
+    +void complete()
+}
+
+class Project {
+    +int id
+    +String name
+    +List<Task> tasks
+    +void addTask(Task task)
+    +void removeTask(Task task)
+}
+
+class TaskCLI{
+    +listTasks()
+    +deleteTasks(List<int> ids)
+    +updateTask(List<int> ids)
+    +addTask(String name)
+    +addProject(String name)
+}
+
+' User "1" -- "0..*" Task : assigns >
+Project "1" o-- "0..*" Task
+Task "1" <|-- "1" Status
+TaskCLI "1" *-- "0..*" Project
+
+@enduml
